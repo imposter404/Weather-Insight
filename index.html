@@ -1,1 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<link rel="stylesheet" href="link/min1.css">
+<script src="link/boot.js"></script>
+<script src="link/apex.js"></script>
+<script src="link/gauge.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+<style>
+
+body{
+    background: var(--body-background);
+    padding: 0;
+    margin: 0;
+    color: white;
+    overflow: hidden;
+    background: linear-gradient(45deg,#0e0e0e70,#00000075),url(pic/13295064_5172658.jpg)no-repeat center/cover;
+}
+/* *{
+    border: 1px solid red;
+} */
+
+:root{
+    --body-background:#000000;
+    --card-color:#00014ed2;
+    --card-border-color:rgba(255, 255, 0, 0.5);
+    --card-border-color-active:rgb(255, 255, 0);
+    --accent-color:#ca6200;
+}
+
+.flex{
+    display: flex;
+}
+
+.flex-div{
+    flex: auto;
+}
+
+.middle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.div-header{
+     padding: 20px 20px;
+   /* background: rgb(0, 66, 209);
+    .flex{
+        flex: auto;
+    }
+    .flex-div{
+        padding: 5px;
+    } */
+
+    .glider{
+        background:#3232ff;
+        height:100%;
+        /* width: 200px; */
+        width: 50%;
+        border-radius: 50px;
+        transition: all .5s ease-in-out;
+
+    }
+    .tab1{
+        background:rgb(44, 44, 44);
+        height:50px;
+        width: 300px;
+        border-radius: 50px;
+        position: relative;
+        z-index: 1;
+    }
+    .flex{
+        display: flex;
+        flex-direction: row;
+    }
+    .flex-div{
+        flex: 50%;
+        z-index: 10;
+    }
+
+    input[id="r2"]{
+        &:checked{
+            & ~ .glider{
+                transform: translateX(100%);
+                background-color: #ff006a;
+            }
+            & ~ .zz{
+                opacity: 0;
+            }
+        }
+    }
+    input{
+        display: none;
+
+    }
+    label{
+        z-index:1;
+        height:100%;
+        width: 50%;
+        cursor: pointer;
+    }
+}
+
+
+.offcanvas1{
+    position: fixed;
+    inset: 75px 0 0 0;
+    background: #ca620000;
+    z-index: 10;
+    transform: translateY(100%);
+    border-radius: 50px 50px 0 0;
+    /* padding: 10px 0 0 0; */
+    /* opacity: 0; */
+    visibility: hidden;
+}
+
+.show{
+    position: fixed;
+    inset: 0 0 0 0;
+    /* filter: blur(40px); */
+    backdrop-filter: blur(40px);
+    /* background: #ca6200; */
+    transition: all.5s ease-in-out;
+}
+
+
+
+/* offcanvas1 animation */
+.slide-in{
+  visibility:visible;
+  animation: slide-in .5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+@keyframes slide-in{
+  0%{
+    transform: translateY(100%);
+  }
+  100%{
+    transform: translateY(0%);
+  }
+}
+
+
+
+.slide-out{
+  animation: slide-out .5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+@keyframes slide-out{
+  0%{
+    transform: translateY(0%);
+  }
+  100%{
+    transform: translateY(100%);
+  }
+}
+
+
+
+
+
+
+.div-body{
+    /* margin-top: 50px; */
+    transition: all 1s ease-in-out;
+    padding: 0 50px;
+
+    .flex{
+        flex: auto;
+    }
+    .flex-div{
+        padding:10px ;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .card1{
+        padding: 10px 20px ;
+        margin: 50px 0;
+        height: 290px;    
+        min-width: 200px;
+        width: 30vw;
+        /* background: var(--card-color); */
+        background: #000130;
+        /* background: ; */
+        overflow: hidden;
+
+        /* background: wheat; */
+        border-radius: 20px;
+        transition: all .2s ease-in-out;
+        border: 2px solid var(--card-border-color);
+        &:hover{
+            border: 2px solid var(--card-border-color-active);
+            box-shadow: 0px 0px 28px -10px var(--card-border-color-active);
+        }
+        div i{
+            margin-right: 10px;
+        }
+    }
+}
+
+
+</style>
+
+
+
+
+
+<body>
+
+<div class="div-header">
+    <div class="flex">
+        <div class="flex-div middle" style="z-index: 0;">
+            <div class="btn btn-dark" id="Date">00:00:00</div>
+        </div>
+
+        <div class="flex-div middle">
+            <div class="tab1 flex">
+                <input class="flex-div" type="radio" name="tab" id="r1" >
+                <label for="r1" class="middle" onclick='offcanvas_Close("#Analytics")'>Dashboard</label>
+                <input class="flex-div" type="radio" name="tab" id="r2" >
+                <label for="r2" class="middle"onclick='offcanvas_Open("#Analytics")'>Analytics</label>
+                <div class="glider" style="position: absolute;"></div>  
+            </div>
+        </div>
+        
+        <div class="flex-div" style="display: flex;justify-content:right;z-index: 0;">
+            <i class="bi bi-list" style="font-size:30px;cursor: pointer;"></i>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="div-body" style="position: relative;" >
+    <div class="ani" style="position: absolute;inset: 280px 300px 280px 300px;z-index: -1;box-shadow: 0 0 0px 20px #ffd900;filter: blur(10px);">
+    </div>
+    <div class="ani" style="position: absolute;inset: 280px 300px 280px 300px;z-index: -1;box-shadow: 0 0 0px 20px #ffd900;">
+    </div>
+    <div class="flex">
+        <div class="flex-div">
+            <div class="card1">
+                <div class="flex" style="flex-direction: row;height: 100%;">
+                    <div class="flex-div" style="padding: 0;align-items: baseline;">
+                        <div class="div" style="justify-content: left;align-items: baseline;width: 100%;">
+                            <div class="flex">
+                                <div class="flex-div flex">
+                                    <div class="flex-div" style="flex-direction: row;">
+                                        <i class="bi bi-thermometer-half"></i>Temperature
+                                    </div>
+                                    <div class="flex-div" style="flex-direction: row;">
+                                        <i class="bi bi-cloud-drizzle"></i>Humidity
+                                    </div>
+                                    <div class="flex-div" style="flex-direction: row;">
+                                        <i class="bi bi-cloud-haze"></i>Heat Index
+                                    </div>
+                                </div>
+                                <div class="flex-div flex">
+                                    <div class="flex-div">
+                                        <div style="font-size: 30px;" id="temperature-text">30</div>
+                                    </div>
+                                    <div class="flex-div">
+                                        <div style="font-size: 30px;" id="humidity-text">30</div>
+                                    </div>
+                                    <div class="flex-div">
+                                        <div style="font-size: 30px;" id="heat_index-text">30</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-div" style="width: 100%;height: 100%; flex: 50%;">
+                        <div id="chart-temp" style="width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card1">
+                <div class="flex" style="flex-direction: column;width: 100%;height: 100%;">
+                    <div class="flex-div flex" style="flex-direction: row;">
+                        <div class="flex-div" style="flex-direction: row;">
+                            <i class="bi bi-lightbulb"></i>Light
+                        </div>
+                        <div class="flex-div" style="flex-direction: row;">
+                            <div style="font-size: 40px;" id="light-text">20</div>
+                            <div style="font-size: 20px;margin-left: 20px;">lux</div>
+                        </div>
+                    </div>
+                    <div class="flex-div" style="width: 100%;display: block;">
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-warning text-dark" style="width: 80%" id="light-progress_bar">80%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="flex-div">
+            <div class="card1" style="height: fit-content;margin: 0;">
+                <div class="flex" style="flex-direction: column;">
+                    <div class="flex-div" style="height: 400px;">
+                        <div>Wind Speed</div>
+                        <div id="chart"></div>
+                    </div>
+                    <hr>
+                    <div class="flex-div" style="height: 400px;">
+                        <div>Wind Direction</div>
+                        <div id="chart-Wind-Direction" style="width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="flex-div">
+            <div class="card1 middle" >
+                <div class="flex" style="flex-direction: row;height: 100%;width: 100%;">
+                    <div class="flex-div" style="padding: 0;align-items: baseline;">
+                        <div class="div" style="justify-content: left;align-items: baseline;width: 100%;">
+                            <div class="flex">
+                                <div class="flex-div flex">
+                                    <div class="flex-div" style="flex-direction: row;">
+                                        <i class="bi bi-cloud-fog2"></i>Air_Pressure
+                                    </div>
+                                    <div class="flex-div" style="flex-direction: row;">
+                                        <i class="bi bi-cloud-fog"></i>Altitude
+                                    </div>
+                                </div>
+                                <div class="flex-div flex">
+                                    <div class="flex-div">
+                                        <div style="font-size: 30px;" id="Air_Pressure-text">30</div>
+                                    </div>
+                                    <div class="flex-div">
+                                        <div style="font-size: 30px;" id="Altitude-text">30</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="flex-div" style="width: 100%;height: 100%; flex: 50%;">
+                        <div id="chart-Air" style="width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card1">
+                <div class="flex" style="flex-direction: row;height: 100%;width: 100%;">
+                    <div class="flex-div" style="padding: 0;align-items: baseline;">
+                        <div class="div" style="justify-content: left;align-items: baseline;width: 100%;">
+                            <i class="bi bi-sun"></i>UV Radiation
+                        </div>
+                    </div>
+                    <div class="flex-div" style="width: 100%;height: 100%; flex: 50%;">
+                        <div id="chart-UV" style="width: 100%; height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="offcanvas1-backdrop"></div>
+
+
+<div class="offcanvas1" id="Analytics">
+    <div class="div-body not" style="overflow: auto;">
+        <div class="flex">
+            <div class="flex-div">
+                <div class="card1" style="margin:25px 0;">
+                    <div style="width: 100%;height: 100%;">
+                        <div id="Chart1" style="width: 100%;height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-div">
+                <div class="card1" style="position: relative;margin:25px 0;">
+                    <div style="position: absolute;inset: 10px 20px auto auto;z-index: 2;">Wind Speed</div>
+                    <div style="width: 100%;height: 100%;">
+                        <div id="Chart2" style="width: 100%;height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-div">
+                <div class="card1" style="position: relative;margin:25px 0;">
+                    <div style="position: absolute;inset: 10px 20px auto auto;z-index: 2;">UV</div>
+                    <div style="width: 100%;height: 100%;">
+                        <div id="Chart3" style="width: 100%;height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="middle"><div style="width: 80%;"><hr></div></div>
+        <div style="padding: 10px;">
+            <div class="card1" style="width: 100%;height: 464px;margin:25px 0;">
+                <div style="padding: 20px;">LOG Table </div>
+                <div class="table-responsive" style="max-height: 450px;">
+                    <table class="table table-dark" id="Table">
+                        <thead style="border-bottom:1px solid white ;">
+                            <tr>
+                                <th>Sl_no</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Temperature</th>
+                                <th>Humidity</th>
+                                <th>Heat_Index</th>
+                                <th>UV</th>
+                                <th>Atm_pres</th>
+                                <th>Light</th>
+                                <th>Wind_Seed</th>
+                                <th>Wind_Dir</th>
+                                <th>Battery</th>
+                            </tr>
+                        </thead>
+                            <tbody >
+                                <tr>
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+<script src="a.js"></script>
+<script>
+
+    setInterval(()=>{
+        location.reload();
+    },100000)
+
+</script>
+
+
+
+
+
+<script>
+// for css
+
+function offcanvas_Open(e)
+{
+  let elements=document.querySelectorAll(e);
+  elements.forEach(element => {
+    element.classList.remove("slide-out");
+    element.classList.add("slide-in");
+  });
+  let backdrop=document.querySelectorAll('.offcanvas1-backdrop')
+      backdrop.forEach(element => {
+      element.classList.add("show");
+    });
+}
+
+
+
+
+function offcanvas_Close(e)
+{
+  let elements=document.querySelectorAll(e);
+  elements.forEach(element => {
+    element.classList.add("slide-out");
+    // element.classList.remove("slide-in");
+  });
+  let backdrop=document.querySelectorAll('.offcanvas1-backdrop')
+      backdrop.forEach(element => {
+      element.classList.remove("show");
+    });
+}
+
+</script>
+
+
+
+<script src="link/amcharts5/index.js"></script>
+<script src="link/amcharts5/xy.js"></script>
+<script src="link/amcharts5/radar.js"></script>
+<script src="link/amcharts5/themes/Animated.js"></script>
+<script src="link/amcharts5/themes/Dark.js"></script>
+
+
+
+
+<script>
+
+
+
+let chart_temp_hand1,chart_temp_hand2,chart_temp_hand3;
+let chart_Air_hand1,chart_Air_hand2;
+
+let data={
+    date:[],
+    time:[],
+    temperature:[],
+    humidity:[],
+    heat_index:[],
+    uv:[],
+    atm_pressure:[],
+    light:[],
+    wind_speed:[],
+    wind_direction:[],
+    battery:[],
+}
+//  gdata = {
+//   data: []
+// }
+for(i=1;i<gdata.data.length;i++)
+{
+    data.date.push(gdata.data[i][0])
+    data.time.push(gdata.data[i][1])
+    data.temperature.push(gdata.data[i][2])
+    data.humidity.push(gdata.data[i][3])
+    data.heat_index.push(gdata.data[i][4])
+    data.uv.push(gdata.data[i][5])
+    data.atm_pressure.push(gdata.data[i][6])
+    data.light.push(gdata.data[i][7])
+    data.wind_speed.push(gdata.data[i][8])
+    data.wind_direction.push(gdata.data[i][9])
+    data.battery.push(gdata.data[i][10])
+}
+
+
+
+
+
+function load_chart_temp()
+{
+    var root = am5.Root.new("chart-temp");
+    
+    root.setThemes([
+        am5themes_Animated.new(root),
+        am5themes_Dark.new(root),
+    ]);
+    var chart = root.container.children.push(
+        am5radar.RadarChart.new(root, {
+            panX: false,
+            panY: false,
+            radius: am5.percent(90),
+            innerRadius: -20
+        })
+    );
+    function createAxis(min, max, start, end, color) {
+        var axisRenderer = am5radar.AxisRendererCircular.new(root, {
+        strokeOpacity: 0.1,
+        minGridDistance: 30,
+        startAngle: start,
+        endAngle: end,
+        stroke: color
+        });
+        axisRenderer.ticks.template.setAll({
+            visible: true,
+            strokeOpacity: 0.8,
+            stroke: color
+        });
+        axisRenderer.grid.template.setAll({
+            visible: false
+        });
+        var axis = chart.xAxes.push(
+            am5xy.ValueAxis.new(root, {
+                maxDeviation: 0,
+                min: min,
+                max: max,
+                strictMinMax: true,
+                renderer: axisRenderer
+            })
+        );
+        var rangeDataItem = axis.makeDataItem({
+            value: min,
+            endValue: max
+        });
+        var range = axis.createAxisRange(rangeDataItem);
+        rangeDataItem.get("axisFill").setAll({
+            visible: true,
+            fill: color,
+            fillOpacity: 0.8,
+            stroke: color,
+            strokeOpacity: 0.8,
+            strokeWidth: 1
+        });
+        rangeDataItem.get("tick").setAll({
+            visible: false
+        });
+        return axis;
+    }
+    function createHand(axis) {
+        var color = axis.get("renderer").get("stroke");
+        var handDataItem = axis.makeDataItem({
+            value: 0
+        });
+        var hand = handDataItem.set("bullet", am5xy.AxisBullet.new(root, {
+            sprite: am5radar.ClockHand.new(root, {
+                radius: am5.percent(90),
+                innerRadius: am5.percent(70)
+            })
+        }));
+        hand.get("sprite").pin.setAll({
+            forceHidden: true
+        });
+        hand.get("sprite").hand.setAll({
+            fill: color,
+            fillOpacity: 0.9
+        });
+        axis.createAxisRange(handDataItem);
+        return hand;
+    }
+    var axis1 = createAxis(0, 100, 0, 110, am5.color(0xEF6F6C));
+    var axis2 = createAxis(0, 200, 120, 230, '#ffbA00');
+    var axis3 = createAxis(0, 100, 240, 350, am5.color(0x7FB685));
+    // var axis4 = createAxis(0, 100, 185, 265, am5.color(0xDDAE7E));
+    chart_temp_hand1 = createHand(axis1);
+    chart_temp_hand2 = createHand(axis2);
+    chart_temp_hand3 = createHand(axis3);
+    // var hand4 = createHand(axis4);
+    // setInterval(function () {
+    //     chart_temp_hand1.get("sprite").dataItem.animate({
+    //         key: "value",
+    //         to: Math.random() * chart_temp_hand1.axis.get("max"),
+    //         duration: 800,
+    //         easing: am5.ease.out(am5.ease.cubic)
+    //     });
+    //     chart_temp_hand2.get("sprite").dataItem.animate({
+    //         key: "value",
+    //         to: Math.random() * chart_temp_hand2.axis.get("max"),
+    //         duration: 800,
+    //         easing: am5.ease.out(am5.ease.cubic)
+    //     });
+    //     chart_temp_hand3.get("sprite").dataItem.animate({
+    //         key: "value",
+    //         to: Math.random() * chart_temp_hand3.axis.get("max"),
+    //         duration: 800,
+    //         easing: am5.ease.out(am5.ease.cubic)
+    //     });
+    // }, 2000);
+} // end of function load_chart_temp
+
+
+
+
+
+function load_chart_Air()
+{
+    var root = am5.Root.new("chart-Air");
+    
+    root.setThemes([
+        am5themes_Animated.new(root),
+        am5themes_Dark.new(root)
+    ]);
+    var chart = root.container.children.push(
+        am5radar.RadarChart.new(root, {
+            panX: false,
+            panY: false,
+            radius: am5.percent(90),
+            innerRadius: -20
+        })
+    );
+    function createAxis(min, max, start, end, color) {
+        var axisRenderer = am5radar.AxisRendererCircular.new(root, {
+        strokeOpacity: 0.1,
+        minGridDistance: 30,
+        startAngle: start,
+        endAngle: end,
+        stroke: color
+        });
+        axisRenderer.ticks.template.setAll({
+            visible: true,
+            strokeOpacity: 0.8,
+            stroke: color
+        });
+        axisRenderer.grid.template.setAll({
+            visible: false
+        });
+        var axis = chart.xAxes.push(
+            am5xy.ValueAxis.new(root, {
+                maxDeviation: 0,
+                min: min,
+                max: max,
+                strictMinMax: true,
+                renderer: axisRenderer
+            })
+        );
+        var rangeDataItem = axis.makeDataItem({
+            value: min,
+            endValue: max
+        });
+        var range = axis.createAxisRange(rangeDataItem);
+        rangeDataItem.get("axisFill").setAll({
+            visible: true,
+            fill: color,
+            fillOpacity: 0.8,
+            stroke: color,
+            strokeOpacity: 0.8,
+            strokeWidth: 1
+        });
+        rangeDataItem.get("tick").setAll({
+            visible: false
+        });
+        return axis;
+    }
+    function createHand(axis) {
+        var color = axis.get("renderer").get("stroke");
+        var handDataItem = axis.makeDataItem({
+            value: 0
+        });
+        var hand = handDataItem.set("bullet", am5xy.AxisBullet.new(root, {
+            sprite: am5radar.ClockHand.new(root, {
+                radius: am5.percent(90),
+                innerRadius: am5.percent(70)
+            })
+        }));
+        hand.get("sprite").pin.setAll({
+            forceHidden: true
+        });
+        hand.get("sprite").hand.setAll({
+            fill: color,
+            fillOpacity: 0.9
+        });
+        axis.createAxisRange(handDataItem);
+        return hand;
+    }
+    var axis1 = createAxis(0, 100, 20, 160, am5.color(0xEF6F6C));
+    var axis2 = createAxis(0, 100, 200, 340, '#ffbA00');
+    // var axis4 = createAxis(0, 100, 185, 265, am5.color(0xDDAE7E));
+    chart_Air_hand1 = createHand(axis1);
+    chart_Air_hand2 = createHand(axis2);
+    // setInterval(function () {
+    //     chart_Air_hand1.get("sprite").dataItem.animate({
+    //         key: "value",
+    //         to: Math.random() * chart_Air_hand1.axis.get("max"),
+    //         duration: 800,
+    //         easing: am5.ease.out(am5.ease.cubic)
+    //     });
+    //     chart_Air_hand2.get("sprite").dataItem.animate({
+    //         key: "value",
+    //         to: Math.random() * chart_Air_hand2.axis.get("max"),
+    //         duration: 800,
+    //         easing: am5.ease.out(am5.ease.cubic)
+    //     });
+    // }, 2000);
+} // end of function load_chart_temp
+
+
+
+
+let axisDataItem
+function load_chart_UV(){
+
+var root = am5.Root.new("chart-UV");
+
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+var chart = root.container.children.push(am5radar.RadarChart.new(root, {
+  panX: false,
+  panY: false,
+  startAngle: 160,
+  endAngle: 380
+}));
+
+
+var axisRenderer = am5radar.AxisRendererCircular.new(root, {
+  innerRadius: -40
+});
+
+axisRenderer.grid.template.setAll({
+  stroke: root.interfaceColors.get("background"),
+  visible: false,
+  strokeOpacity: 0.8,
+  strokeWidth: 2,
+  crisp: false
+});
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+  maxDeviation: 0,
+  min: 0,
+  max: 100,
+  strictMinMax: true,
+  renderer: axisRenderer
+}));
+
+
+axisDataItem = xAxis.makeDataItem({});
+
+var clockHand = am5radar.ClockHand.new(root, {
+  pinRadius: am5.percent(20),
+  radius: am5.percent(100),
+  bottomWidth: 40
+})
+
+var bullet = axisDataItem.set("bullet", am5xy.AxisBullet.new(root, {
+  sprite: clockHand
+}));
+
+xAxis.createAxisRange(axisDataItem);
+
+var label = chart.radarContainer.children.push(am5.Label.new(root, {
+  fill: am5.color(0xffffff),
+  centerX: am5.percent(50),
+  textAlign: "center",
+  centerY: am5.percent(50),
+  fontSize: "2em"
+}));
+
+
+
+axisDataItem.set("value", 50);
+bullet.get("sprite").on("rotation", function () {
+  var value = axisDataItem.get("value");
+  var text = Math.round(axisDataItem.get("value")).toString();
+  var fill = am5.color(0x000000);
+  xAxis.axisRanges.each(function (axisRange) {
+    if (value >= axisRange.get("value") && value <= axisRange.get("endValue")) {
+      fill = axisRange.get("axisFill").get("fill");
+    }
+  })
+
+  label.set("text", Math.round(value).toString());
+
+  clockHand.pin.animate({ key: "fill", to: fill, duration: 500, easing: am5.ease.out(am5.ease.cubic) })
+  clockHand.hand.animate({ key: "fill", to: fill, duration: 500, easing: am5.ease.out(am5.ease.cubic) })
+});
+
+// setInterval(function () {
+//   axisDataItem.animate({
+//     key: "value",
+//     to: Math.round(Math.random() * 100),
+//     duration: 500,
+//     easing: am5.ease.out(am5.ease.cubic)
+//   });
+// }, 2000)
+
+chart.bulletsContainer.set("mask", undefined);
+
+
+var bandsData = [{
+  title: "Best",
+  color: "#0f9747",
+  lowScore: 0,
+  highScore: 20
+}, {
+  title: "Good",
+  color: "#b0d136",
+  lowScore: 20,
+  highScore: 40
+}, {
+  title: "Warning",
+  color: "#f04922",
+  lowScore: 40,
+  highScore: 60
+}, {
+  title: "Danger",
+  color: "#ee1f25",
+  lowScore: 60,
+  highScore: 100
+}];
+
+
+
+am5.array.each(bandsData, function (data) {
+  var axisRange = xAxis.createAxisRange(xAxis.makeDataItem({
+    above: true,
+    value: data.lowScore,
+    endValue: data.highScore
+  }));
+
+  axisRange.get("axisFill").setAll({
+    visible: true,
+    fill: am5.color(data.color),
+    fillOpacity: 0.8
+  });
+
+  axisRange.get("label").setAll({
+    text: data.title,
+    inside: true,
+    radius: 15,
+    fontSize: "0.9em",
+    fill: root.interfaceColors.get("background")
+  });
+});
+
+
+// Make stuff animate on load
+chart.appear(1000, 100);
+}
+
+
+// let axisDataItem_wind_direction
+// function load_chart_Wind_direction(){
+
+// var root = am5.Root.new("chart-Wind-Direction");
+
+// root.setThemes([
+//   am5themes_Animated.new(root)
+// ]);
+
+// var chart = root.container.children.push(am5radar.RadarChart.new(root, {
+//   panX: false,
+//   panY: false,
+//   startAngle: 0,
+//   endAngle: 360
+// }));
+
+
+// var axisRenderer = am5radar.AxisRendererCircular.new(root, {
+//   innerRadius: -10
+// });
+
+// axisRenderer.grid.template.setAll({
+//   stroke: root.interfaceColors.get("background"),
+//   visible: false,
+//   strokeOpacity: 0.8,
+//   strokeWidth: 2,
+//   crisp: false
+// });
+
+// var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+//   maxDeviation: 0,
+//   min: 0,
+//   max: 800,
+//   strictMinMax: true,
+//   renderer: axisRenderer
+// }));
+
+
+// axisDataItem_wind_direction = xAxis.makeDataItem({});
+
+// var clockHand = am5radar.ClockHand.new(root, {
+//   pinRadius: am5.percent(20),
+//   radius: am5.percent(100),
+//   bottomWidth: 40
+// })
+
+// var bullet = axisDataItem_wind_direction.set("bullet", am5xy.AxisBullet.new(root, {
+//   sprite: clockHand
+// }));
+
+// xAxis.createAxisRange(axisDataItem_wind_direction);
+
+// var label = chart.radarContainer.children.push(am5.Label.new(root, {
+//   fill: am5.color(0xffffff),
+//   centerX: am5.percent(50),
+//   textAlign: "center",
+//   centerY: am5.percent(50),
+//   fontSize: "2em"
+// }));
+
+
+
+// axisDataItem_wind_direction.set("value", 50);
+
+// bullet.get("sprite").on("rotation", function () {
+//   var value = axisDataItem_wind_direction.get("value");
+//   var text = Math.round(axisDataItem_wind_direction.get("value")).toString();
+//   var fill = am5.color(0x000000);
+//   xAxis.axisRanges.each(function (axisRange) {
+//     if (value >= axisRange.get("value") && value <= axisRange.get("endValue")) {
+//       fill = axisRange.get("axisFill").get("fill");
+//     }
+//   })
+
+// //   label.set("text", Math.round(value).toString());
+
+//   clockHand.pin.animate({ key: "fill", to: fill, duration: 500, easing: am5.ease.out(am5.ease.cubic) })
+//   clockHand.hand.animate({ key: "fill", to: fill, duration: 500, easing: am5.ease.out(am5.ease.cubic) })
+// });
+
+// // setInterval(function () {
+// //   axisDataItem_wind_direction.animate({
+// //     key: "value",
+// //     to: Math.round(Math.random() * 100),
+// //     duration: 500,
+// //     easing: am5.ease.out(am5.ease.cubic)
+// //   });
+// // }, 2000)
+
+// chart.bulletsContainer.set("mask", undefined);
+
+
+// var bandsData = [{
+//   title: "N",
+//   color: "#ff0000",
+//   lowScore:  500,
+//   highScore: 700
+// }, 
+// {
+//   title: "S",
+//   color: "#0000ff",
+//   lowScore: 100,
+//   highScore: 300
+// }, 
+// {
+//   title: "W",
+//   color: "#ff00ff",
+//   lowScore: 300,
+//   highScore: 500
+// }, 
+// {
+//   title: "",
+//   color: "#00ff00",
+//   lowScore: 700,
+//   highScore: 800
+// },
+// {
+//   title: "E",
+//   color: "#00ff00",
+//   lowScore: 0,
+//   highScore: 0
+// },
+// {
+//   title: "",
+//   color: "#00ff00",
+//   lowScore: 0,
+//   highScore: 100
+// },
+
+// {
+//   title: "NE",
+//   color: "#00ff00",
+//   lowScore: 700,
+//   highScore: 700
+// },
+// {
+//   title: "SE",
+//   color: "#00ff00",
+//   lowScore: 100,
+//   highScore: 100
+// },
+// {
+//   title: "SW",
+//   color: "#00ff00",
+//   lowScore: 300,
+//   highScore: 300
+// },
+// {
+//   title: "NW",
+//   color: "#00ff00",
+//   lowScore: 500,
+//   highScore: 500
+// },
+
+// ];
+
+
+
+// am5.array.each(bandsData, function (data) {
+//   var axisRange = xAxis.createAxisRange(xAxis.makeDataItem({
+//     above: true,
+//     value: data.lowScore,
+//     endValue: data.highScore
+//   }));
+
+//   axisRange.get("axisFill").setAll({
+//     visible: true,
+//     fill: am5.color(data.color),
+//     fillOpacity: 0.8
+//   });
+
+//   axisRange.get("label").setAll({
+//     text: data.title,
+//     inside: true,
+//     radius: 15,
+//     fontSize: "15px",
+//     fill: root.interfaceColors.get("background")
+//   });
+// });
+
+
+// // Make stuff animate on load
+// chart.appear(1000, 100);
+// }
+
+
+
+
+// new from here
+let wind_direction_chart
+function load_chart_Wind_direction(){
+
+var root = am5.Root.new("chart-Wind-Direction");
+
+root.setThemes([
+  am5themes_Animated.new(root),
+  am5themes_Dark.new(root),
+]);
+
+ wind_direction_chart = root.container.children.push(
+  am5radar.RadarChart.new(root, {
+    panX: false,
+    panY: false,
+    startAngle: -90,
+    endAngle: 270
+  })
+);
+
+var axisRenderer = am5radar.AxisRendererCircular.new(root, {
+  strokeOpacity: 1,
+  strokeWidth: 5,
+  minGridDistance: 10
+});
+axisRenderer.ticks.template.setAll({
+  forceHidden: true
+});
+axisRenderer.grid.template.setAll({
+  forceHidden: true
+});
+
+axisRenderer.labels.template.setAll({ forceHidden: true });
+
+var xAxis = wind_direction_chart.xAxes.push(
+  am5xy.ValueAxis.new(root, {
+    maxDeviation: 0,
+    min: 0,
+    max: 360,
+    strictMinMax: true,
+    renderer: axisRenderer
+  })
+);
+
+// north
+var axisDataItemN = xAxis.makeDataItem({ value: 0 });
+
+var clockHandN = am5radar.ClockHand.new(root, {
+  pinRadius: 0,
+  radius: am5.percent(90),
+  bottomWidth: 40
+});
+
+clockHandN.hand.set("fill", am5.color(0xff0000));
+
+clockHandN.adapters.add("rotation", function () {
+  return -90;
+});
+
+axisDataItemN.set(
+  "bullet",
+  am5xy.AxisBullet.new(root, {
+    sprite: clockHandN
+  })
+);
+
+xAxis.createAxisRange(axisDataItemN);
+
+//south
+var axisDataItemS = xAxis.makeDataItem({ value: 180 });
+
+var clockHandS = am5radar.ClockHand.new(root, {
+  pinRadius: 0,
+  radius: am5.percent(90),
+  bottomWidth: 40
+});
+
+clockHandS.adapters.add("rotation", function () {
+  return 90;
+});
+
+axisDataItemS.set(
+  "bullet",
+  am5xy.AxisBullet.new(root, {
+    sprite: clockHandS
+  })
+);
+
+xAxis.createAxisRange(axisDataItemS);
+
+function createLabel(text, value, tickOpacity) {
+  var axisDataItem = xAxis.makeDataItem({ value: value });
+  xAxis.createAxisRange(axisDataItem);
+  var label = axisDataItem.get("label");
+  label.setAll({
+    text: text,
+    forceHidden: false,
+    inside: true,
+    radius: 20
+  });
+
+  var tick = axisDataItem
+    .get("tick")
+    .setAll({
+      forceHidden: false,
+      strokeOpacity: tickOpacity,
+      length: 12 * tickOpacity,
+      visible: true,
+      inside: true
+    });
+}
+
+createLabel("N", 0, 1);
+createLabel("NE", 45, 1);
+createLabel("E", 90, 1);
+createLabel("SE", 135, 1);
+createLabel("S", 180, 1);
+createLabel("SW", 225, 1);
+createLabel("W", 270, 1);
+createLabel("NW", 315, 1);
+
+for (var i = 0; i < 360; i = i + 5) {
+  createLabel("", i, 0.5);
+}
+
+// setInterval(function () {
+//   var newAngle = Math.random() * 360;
+//   chart.animate({
+//     key: "startAngle",
+//     to: newAngle,
+//     duration: 1000,
+//     easing: am5.ease.out(am5.ease.cubic)
+//   });
+//   chart.animate({
+//     key: "endAngle",
+//     to: newAngle + 360,
+//     duration: 1000,
+//     easing: am5.ease.out(am5.ease.cubic)
+//   });
+//   axisDataItemN.animate({
+//     key: "value",
+//     to: am5.math.normalizeAngle(-90 - newAngle),
+//     duration: 1000,
+//     easing: am5.ease.out(am5.ease.cubic)
+//   });
+//   axisDataItemS.animate({
+//     key: "value",
+//     to: am5.math.normalizeAngle(90 - newAngle),
+//     duration: 1000,
+//     easing: am5.ease.out(am5.ease.cubic)
+//   });
+// }, 2000);
+
+// Make stuff animate on load
+wind_direction_chart.appear(1000, 100);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// apex js chart 
+let chart0 
+function load_chart_Wind(){
+options = {
+  series: [55],
+  chart: {height: 300,type: 'radialBar',toolbar: {show: true},toolbar: { show: false }},
+plotOptions: {
+  radialBar: {
+    startAngle: -135,
+    endAngle: 225,
+     hollow: {margin: 0,size: '70%',background: '#ffffff00',image: undefined,imageOffsetX: 0,imageOffsetY: 0,position: 'front',
+     dropShadow: {enabled: true,top: 3,left: 0,blur: 4,opacity: 0.24}
+    },
+    track: {
+      background: '#ffffff30',
+      strokeWidth: '67%',
+      margin: 0, // margin is in pixels
+      dropShadow: {enabled: true,top: -3,left: 0,blur: 4,opacity: 0.35}
+    },
+    dataLabels: {
+      show: true,
+      name: {offsetY: -10,show: true,color: '#888',fontSize: '17px'},
+      value: {
+        formatter: function(val) {
+          return parseInt(val);
+        },
+        color: '#fff',fontSize: '36px',show: true,
+      }
+    }
+  }
+},
+fill: {
+  type: 'gradient',
+  gradient: {shade: 'dark',type: 'horizontal',shadeIntensity: 0.5,gradientToColors: ['#ABE5A1'],inverseColors: true,opacityFrom: 1,opacityTo: 1,stops: [0, 100]}
+},
+stroke: {
+  lineCap: 'round'
+},
+labels: ['%'],
+};
+
+chart0 = new ApexCharts(document.querySelector("#chart"), options);
+chart0.render();
+
+}
+
+
+
+
+let chart_line_temp={
+    temperature:[1,2,3],humidity:[1,2,3],heat_index:[1,2,3],categories:[1,2,3]
+}
+let chart1
+function load_chart_line_temp(){
+    var area_options = {
+    chart: { type: 'area', zoom: { enabled: false }, toolbar: { show: false }, height: '100%', width: '100%', foreColor: '#ffffff', },
+    grid: { show: false, },
+    series: [{ name: 'Temperature', data: chart_line_temp.temperature,}, { name: 'Humidity', data: chart_line_temp.humidity}, { name: 'Heat Index', data: chart_line_temp.heat_index}],
+    xaxis: { categories:chart_line_temp.categories, },
+    colors: ['#ffe200', '#ff00af' ,'#007cff'],
+    dataLabels: { enabled: false },
+    stroke: { curve: 'straight' },
+    legend: { position: 'top', horizontalAlign: 'right', },
+    // theme:{mode:'dark',color:"#000000"},
+    tooltip: { enabled: true,theme:'dark'}
+}
+chart1 = new ApexCharts(document.getElementById("Chart1"), area_options);
+chart1.render();
+}
+
+
+
+
+
+let chart_line_Wind={
+    wind_speed:[1,2,3],categories:[1,2,3]
+}
+let chart2
+function load_chart_line_Wind(){
+    var area_options = {
+    chart: { type: 'area', zoom: { enabled: false }, toolbar: { show: false }, height: '100%', width: '100%', foreColor: '#ffffff', },
+    grid: { show: false, },
+    series: [{ name: 'Wind Speed', data: chart_line_Wind.wind_speed}],
+    xaxis: { categories:chart_line_Wind.categories},
+    colors: ['#ffe200', '#ff00af' ,'#007cff'],
+    dataLabels: { enabled: false },
+    stroke: { curve: 'straight' },
+    legend: { position: 'top', horizontalAlign: 'right', },
+    // theme:{mode:'dark',color:"#000000"},
+    tooltip: { enabled: true,theme:'dark'}
+}
+chart2 = new ApexCharts(document.getElementById("Chart2"), area_options);
+chart2.render();
+}
+
+
+
+
+
+let chart_line_UV={
+    UV:[1,2,3],categories:[1,2,3]
+}
+let chart3
+function load_chart_line_UV(){
+    var area_options = {
+    chart: { type: 'area', zoom: { enabled: false }, toolbar: { show: false }, height: '100%', width: '100%', foreColor: '#ffffff', },
+    grid: { show: false, },
+    series: [{ name: 'UV', data: chart_line_UV.UV,}],
+    xaxis: { categories:chart_line_UV.categories, },
+    colors: ['#ffe200', '#ff00af' ,'#007cff'],
+    dataLabels: { enabled: false },
+    stroke: { curve: 'straight' },
+    legend: { position: 'top', horizontalAlign: 'right', },
+    // theme:{mode:'dark',color:"#000000"},
+    tooltip: { enabled: true,theme:'dark'}
+}
+chart3 = new ApexCharts(document.getElementById("Chart3"), area_options);
+chart3.render();
+}
+
+
+
+
+function date_loop(){
+    setInterval(() => {
+        let d = new Date()
+        let date = d.getHours() + " : " + d.getMinutes() + " : " + d.getSeconds();
+        document.getElementById("Date").innerHTML=date
+    }, 1000)
+}
+date_loop()
+
+function load_table(){
+
+let table = document.getElementById("Table");
+var row = table.insertRow(1);
+let cell1 = row.insertCell(0);
+let cell2 = row.insertCell(1);
+let cell3 = row.insertCell(2);
+let cell4 = row.insertCell(3);
+let cell5 = row.insertCell(4);
+let cell6 = row.insertCell(5);
+let cell7 = row.insertCell(6);
+let cell8 = row.insertCell(7);
+let cell9 = row.insertCell(8);
+let cell10 = row.insertCell(9);
+let cell11 = row.insertCell(10);
+let cell12 = row.insertCell(11);
+
+cell1.innerHTML= table.rows.length-2;
+cell2.innerHTML= data.date[data.date.length-1];
+cell3.innerHTML= data.time[data.time.length-1];
+cell4.innerHTML= data.temperature[data.temperature.length-1];
+cell5.innerHTML= data.humidity[data.humidity.length-1];
+cell6.innerHTML= data.heat_index[data.heat_index.length-1]
+cell7.innerHTML= data.uv[data.uv.length-1]
+cell8.innerHTML= data.atm_pressure[data.atm_pressure.length-1]
+cell9.innerHTML= data.light[data.light.length-1]
+cell10.innerHTML= data.wind_speed[data.wind_speed.length-1]
+cell11.innerHTML= data.wind_direction[data.wind_direction.length-1]
+cell12.innerHTML= data.battery[data.battery.length-1]
+
+if(cell4.innerHTML>80){cell4.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell5.innerHTML>80){cell5.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell6.innerHTML>80){cell6.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell7.innerHTML>80){cell7.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell8.innerHTML>80){cell8.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell9.innerHTML>80){cell9.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell10.innerHTML>80){cell10.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell11.innerHTML>80){cell1.style.backgroundColor = "Red";cell3.style.color = "white";}
+if(cell12.innerHTML>80){cell12.style.backgroundColor = "Red";cell3.style.color = "white";}
+}
+
+function update()
+{
+    // chart_temperature
+    chart_temp_hand1.get("sprite").dataItem.animate({
+            key: "value",
+            to: data.temperature.at(-1),
+            duration: 500,
+            easing: am5.ease.out(am5.ease.cubic)
+        });
+    chart_temp_hand2.get("sprite").dataItem.animate({
+        key: "value",
+        to: data.humidity.at(-1),
+        duration: 500,
+        easing: am5.ease.out(am5.ease.cubic)
+    });
+    chart_temp_hand3.get("sprite").dataItem.animate({
+        key: "value",
+        to: data.heat_index.at(-1),
+        duration: 500,
+        easing: am5.ease.out(am5.ease.cubic)
+    });
+
+    document.getElementById("temperature-text").innerHTML=data.temperature.at(-1)
+    document.getElementById("humidity-text").innerHTML=data.humidity.at(-1)
+    document.getElementById("heat_index-text").innerHTML=data.heat_index.at(-1)
+
+
+
+    // chart air presssure
+    chart_Air_hand1.get("sprite").dataItem.animate({
+        key: "value",
+        to:data.atm_pressure.at(-1),
+        duration: 800,
+        easing: am5.ease.out(am5.ease.cubic)
+    });
+    chart_Air_hand2.get("sprite").dataItem.animate({
+        key: "value",
+        to: data.atm_pressure.at(-1),
+        duration: 800,
+        easing: am5.ease.out(am5.ease.cubic)
+    });
+
+    document.getElementById("Air_Pressure-text").innerHTML=data.atm_pressure.at(-1)
+    document.getElementById("Altitude-text").innerHTML=data.atm_pressure.at(-1)
+
+
+
+    // chart light
+    document.getElementById("light-progress_bar").style.width=(data.light.at(-1)*100 /100)+"%"
+    document.getElementById("light-progress_bar").innerHTML=(data.light.at(-1)*100 /100)
+    document.getElementById("light-text").innerHTML=data.light.at(-1)
+
+
+
+    // chart UV
+    axisDataItem.animate({
+        key: "value",
+        to: data.uv.at(-1),
+        duration: 500,
+        easing: am5.ease.out(am5.ease.cubic)
+    });
+
+    //chart wind 
+    chart0.updateSeries([   (data.wind_speed.at(-1))/100 *100   ])  //percentage conversion
+
+
+    //chart wind direction not apex 
+    let wind_direction_value
+    if(data.wind_direction.at(-1) == "N")
+    {   wind_direction_value=0    }
+    else if(data.wind_direction.at(-1) == "NE")
+    {   wind_direction_value=45    }
+    else if(data.wind_direction.at(-1) == "E")
+    {   wind_direction_value=90      }
+    else if(data.wind_direction.at(-1) == "SE")
+    {   wind_direction_value=135    }
+    else if(data.wind_direction.at(-1) == "S")
+    {   wind_direction_value=180    }
+    else if(data.wind_direction.at(-1) == "SW")
+    {   wind_direction_value=225    }
+    else if(data.wind_direction.at(-1) == "W")
+    {   wind_direction_value=270    }
+    else if(data.wind_direction.at(-1) == "NW")
+    {   wind_direction_value=315    }
+
+    // axisDataItem_wind_direction.animate({
+    //     key: "value",
+    //     to: wind_direction_value,
+    //     duration: 1000,
+    //     easing: am5.ease.out(am5.ease.cubic)
+    // });
+
+    wind_direction_chart.animate({
+    key: "startAngle",
+    to: wind_direction_value,
+    duration: 1000,
+    easing: am5.ease.out(am5.ease.cubic)
+  });
+  wind_direction_chart.animate({
+    key: "endAngle",
+    to: wind_direction_value + 360,
+    duration: 1000,
+    easing: am5.ease.out(am5.ease.cubic)
+  });
+
+
+
+
+
+
+
+    // apexchart
+    chart_line_temp.temperature=[data.temperature.at(-3),data.temperature.at(-2),data.temperature.at(-1)]
+    chart_line_temp.humidity=[data.humidity.at(-3),data.humidity.at(-2),data.humidity.at(-1)]
+    chart_line_temp.heat_index=[data.heat_index.at(-3),data.heat_index.at(-2),data.heat_index.at(-1)]
+    chart_line_temp.categories.splice(0,1)
+    chart_line_temp.categories.push(data.time.at(-1))
+    chart1.updateSeries([{data:chart_line_temp.temperature},{data:chart_line_temp.humidity},{data:chart_line_temp.heat_index}])
+
+
+    chart_line_Wind.wind_speed=[data.wind_speed.at(-3),data.wind_speed.at(-2),data.wind_speed.at(-1)]
+    chart_line_Wind.categories.splice(0,1)
+    chart_line_Wind.categories.push(data.time.at(-1))
+    chart2.updateSeries([{data:chart_line_Wind.wind_speed}])
+
+    chart_line_UV.UV=[data.uv.at(-3),data.uv.at(-2),data.uv.at(-1)]
+    chart_line_UV.categories.splice(0,1)
+    chart_line_UV.categories.push(data.time.at(-1))
+    chart3.updateSeries([{data:chart_line_UV.UV}])
+
+    load_table()
+}
+
+
+setInterval(()=>{
+    data.date.push(Math.floor(Math.random()*100));
+    // data.time.push(Math.floor(Math.random()*100));
+    data.temperature.push(Math.floor(Math.random()*100));
+    data.humidity.push(Math.floor(Math.random()*100));
+    data.heat_index.push(Math.floor(Math.random()*100));
+    data.uv.push(Math.floor(Math.random()*100));
+    data.atm_pressure.push(Math.floor(Math.random()*100));
+    data.light.push(Math.floor(Math.random()*100));
+    data.wind_speed.push(Math.floor(Math.random()*100));
+    l=["N","NE","E","SE","S","SW","W","NW"]
+    data.wind_direction.push(l[Math.floor(Math.random()*8)]);
+    data.battery.push(Math.floor(Math.random()*100));
+    update();
+},1000)
+
+
+function onStartUp(){
+    load_chart_temp()
+    load_chart_Air()
+    load_chart_UV()
+    load_chart_Wind_direction()
+    load_chart_Wind()
+    load_chart_line_temp()
+    load_chart_line_Wind();
+    load_chart_line_UV();
+}
+onStartUp()
+
+
+
+</script>
+
+
+</html>
+
 
